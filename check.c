@@ -30,12 +30,8 @@ int main() {
         close(pfd[1]);
 
         struct passwd *pw = get_pw();
-
-        unsigned int len = strlen(pw->pw_name);
-        char *filter = malloc(len + 6);
-        strncpy(filter, "name=", 5);
-        filter[5] = '\0';
-        strncat(filter, pw->pw_name, len);
+        char filter[1024];
+        snprintf(filter, sizeof(filter), "name=%s", pw->pw_name);
 
         char *argv[] = {"docker", "ps", "-aq", "--filter", filter, 0};
         execvp(argv[0], argv);
@@ -55,7 +51,9 @@ int main() {
             char mount_dir[1024];
             snprintf(mount_dir, sizeof(mount_dir), "/tmp/%s:/tmp/test:rw", pw->pw_name);
             puts(mount_dir);
-            char *argv[] = {"docker", "run", "--name", pw->pw_name, "-dit", "-v", mount_dir, "--restart", "always", "ubuntu_socat", 0};
+            char uid[16];
+            snprintf(uid, sizeof(uid), "%d", geteuid());
+            char *argv[] = {"docker", "run", "--name", pw->pw_name, "-dit", "-v", mount_dir, "--restart", "always", "ubuntu_socat", uid, 0};
             execvp(argv[0], argv);
             perror("execvp");
             exit(1);
