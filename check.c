@@ -49,7 +49,7 @@ int main() {
         } else if (pid == 0) {
             struct passwd *pw = get_pw();
             char mount_dir[1024];
-            snprintf(mount_dir, sizeof(mount_dir), "/tmp/%s:/tmp/test:rw", pw->pw_name);
+            snprintf(mount_dir, sizeof(mount_dir), "/tmp/%s:/tmp/containersh:rw", pw->pw_name);
             puts(mount_dir);
             char uid[16];
             snprintf(uid, sizeof(uid), "%d", geteuid());

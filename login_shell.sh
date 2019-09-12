@@ -2,4 +2,4 @@
 
 ./check || exit
 
-socat - /tmp/$USER/test.sock
+socat - /tmp/$USER/containersh.sock
