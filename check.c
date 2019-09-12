@@ -31,7 +31,7 @@ int main() {
 
         struct passwd *pw = get_pw();
         char filter[1024];
-        snprintf(filter, sizeof(filter), "name=%s", pw->pw_name);
+        snprintf(filter, sizeof(filter), "name=%s$", pw->pw_name);
 
         char *argv[] = {"docker", "ps", "-aq", "--filter", filter, 0};
         execvp(argv[0], argv);
