@@ -44,7 +44,7 @@ func main() {
 		os.Mkdir(source, os.ModePerm)
 
 		resq, err := cli.ContainerCreate(ctx, &container.Config{
-			Image: "ubuntu_socat",
+			Image: "ubuntu_containersh",
 			Cmd:   []string{u.Uid},
 			Tty:   true,
 		}, &container.HostConfig{

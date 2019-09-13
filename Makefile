@@ -4,7 +4,7 @@ GOBUILD=go build
 GOGET=go get
 
 build_image:
-	docker build -t ubuntu_socat .
+	docker build -t ubuntu_containersh .
 
 check: 
 	$(GOBUILD) -o check
